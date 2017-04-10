@@ -1,0 +1,215 @@
+<div id="centro-perfil-container" class="perfil-section">
+<div class="container">
+<div class="row centro-tratamiento-row">
+    <div class="col-sm-4 perfil-centro-informacion-container">
+        <div class="perfil-centro-informacion-text">
+            <h4>Acerca de</h4>
+            <p>{{centro.descripcion}}</p>
+        </div>
+    </div>
+    <div class="col-sm-8 text-center">
+        <div class="row">
+            <div class="col-sm-7 perfil-centro-map-col" data-ng-controller="CentroMapCtrl">
+                <google-map center="map.center" zoom="map.zoom" draggable="true" refresh="map.refresh" options="map.options">
+                    <marker coords="map.marker.coords" options="map.marker.options" events="map.marker.events" idkey="map.marker.id">
+                    </marker>
+                </google-map>
+            </div>
+            <div class="col-sm-5 text-left on-mobile-text-center">
+                <h4>Información Útil</h4>
+                <p>
+                    {{centro.horarios_visibles}}
+                </p>
+                <p>
+                    Teléfono: {{centro.telefono}}
+                </p>
+                <p>
+                    Dirección: {{centro.direccion}}
+                </p>
+                <p>
+                    <a data-ng-href="{{centro.web}}" class="perfil-centro-web-text">{{centro.web}}</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row centro-tratamiento-row">
+    <form name="search-form" novalidate  submit-once="mostrarProfesionales()" role="form">
+        <div class="col-sm-5 col-md-4 col-lg-4 col-sm-offset-1 col-lg-offset-1">
+            <div>
+                <div class="col-sm-12">
+                    <select class="form-control" data-ng-model="tratamiento.index" data-placeholder="¿Qué tratamiento querés?" data-ui-select2 required>
+                        <option></option>
+                        <option ng-repeat="(index, tt) in tratamientos" value="{{index}}">{{tt.nombre}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 visible-xs">
+            <div class="row">
+                <hr>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-2 col-lg-2 col-xs-12">
+            <p class="input-group">
+                <input type="text" class="form-control"
+                       ng-click="datepicker.open($event)"
+                       datepicker-popup="{{datepicker.format}}"
+                       ng-model="datepicker.dt"
+                       is-open="datepicker.opened"
+                       min-date="{{datepicker.minDate}}"
+                       max-date="'2015-06-22'"
+                       datepicker-options="datepicker.dateOptions"
+                       date-disabled="datepicker.disabled(date, mode)"
+                       show-button-bar="false"
+                       ng-required="true"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="datepicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+            </p>
+        </div>
+        <div class="col-xs-12 visible-xs">
+            <div class="row">
+                <hr>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-2 col-lg-2 col-xs-12 perfil-centro-timepicker">
+            <div class="row">
+                <timepicker
+                        align="center"
+                        ng-model="timepicker.time"
+                        hour-step="timepicker.hstep"
+                        minute-step="timepicker.mstep"
+                        show-meridian="timepicker.showMeridian">
+                </timepicker>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-2 col-lg-2 perfil-centro-btn-select-col">
+            <div class="text-center perfil-centro-btn-select-container ">
+                <button id="btn-select-md"
+                        data-ng-disabled="!(centro.id && tratamiento.id)"
+                        class="btn btn-short btn-filled"
+                        type="submit"><i class="glyphicon glyphicon-search"></i> Buscar</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="reserva-section" class="reserva-section" data-ng-show="showProfesionales">
+    <div class="row">
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-4">
+            <h4 class="reserva-tratamiento-text text-center">{{tratamiento.nombre}} | <span class="reserva-tratamiento-duracion-text">Duración: {{tratamiento.duracion * centro.duracion_fraccion}} minutos</span></h4>
+        </div>
+        <div class="col-xs-12 col-sm-4 text-center reserva-profesionales-subtitulo-container">
+            <span class="reserva-profesionales-subtitulo-text">Elegí tu profesional</span>
+        </div>
+        <div class="col-xs-12 col-sm-4 text-right">
+            <h4 class="reserva-fecha-container text-center">
+                <i class="fa fa-arrow-circle-left cr-pointer" data-ng-click="bajaFecha()"></i>
+                <span class="reserva-fecha-text">{{reserva.fecha | date:'dd/MM/yyyy'}}</span>
+                <i class="fa fa-arrow-circle-right cr-pointer" data-ng-click="subeFecha()"></i>
+            </h4>
+        </div>
+    </div>
+    <div class="reserva-peluquero-row" data-ng-show="!primerProfDisponible.empty">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 reserva-peluquero-nombre-row cr-pointer"
+                 data-ng-click="primerProfDisponible.visible = primerProfDisponible.visible? false: true">
+                <i class="fa" data-ng-class="primerProfDisponible.visible? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                <span class="reserva-peluquero-nombre-text">Primer Profesional Disponible</span>
+                <span class="reserva-peluquero-nombre-ayuda" data-ng-show="primerProfDisponible.visible"> (Click para ver horarios)</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 reserva-peluquero-body-row" data-ng-show="!primerProfDisponible.visible">
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 text-center">
+                        <img class="reserva-peluquero-body-foto" src='assets/img/anon.jpg' />
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <h4>Primer Profesional Disponible</h4>
+                        <hr/>
+                        <p>Elige uno de estos horarios si no tienes preferencia especial por alguno de nuestros profesionales.</p>
+                    </div>
+                    <div class="col-md-5 col-sm-5">
+                        <h4>Horarios</h4>
+                        <hr/>
+                        <div class="row reserva-peluquero-body-horarios-container text-center">
+                            <div class="col-xs-3 reserva-peluquero-body-horario"
+                                 data-ng-repeat="horario in primerProfDisponible.horarios"
+                                 data-ng-class="{selected: horario.selected}"
+                                 data-ng-click="selectHorario(horario.profesional, horario);">
+                                <span>{{horario.hora}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <hr/>
+                            </div>
+                            <div class="col-xs-12 text-right">
+                                <a class="btn btn-filled col-sm-offset-3 col-sm-6 col-xs-12" ng-click="openReservaDialog()">Reservar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="reserva-peluquero-row" data-ng-repeat="profesional in profesionales" data-ng-show="horarios[profesional.id].length">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 reserva-peluquero-nombre-row cr-pointer"
+                 data-ng-click="profesional.visible = profesional.visible? false: true">
+                <i class="fa" data-ng-class="profesional.visible? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                <span class="reserva-peluquero-nombre-text">{{profesional.nombre}} {{profesional.apellido}}</span>
+                <span class="reserva-peluquero-nombre-ayuda" data-ng-hide="!profesional.visible"> (Click para ver horarios)</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 reserva-peluquero-body-row" data-ng-show="!profesional.visible">
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 text-center">
+                        <img class="reserva-peluquero-body-foto" ng-src="{{profesional.url_foto_perfil || 'assets/img/anon.jpg'}}" />
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <h4>Acerca de {{profesional.nombre}}</h4>
+                        <hr/>
+                        <p>{{profesional.descripcion}}</p>
+                    </div>
+                    <div class="col-md-5 col-sm-5">
+                        <h4>Horarios</h4>
+                        <hr/>
+                        <div class="row reserva-peluquero-body-horarios-container text-center">
+                            <div class="col-xs-12 reserva-peluquero-body-horario" data-ng-show="!horarios[profesional.id].length">
+                                No existen turnos disponibles en este horario.
+                            </div>
+                            <div class="col-xs-3 reserva-peluquero-body-horario"
+                                 data-ng-repeat="horario in horarios[profesional.id]"
+                                 data-ng-class="{selected: horario.selected}"
+                                 data-ng-click="selectHorario(profesional, horario);">
+                                <span>{{horario.hora}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <hr/>
+                            </div>
+                            <div class="col-xs-12 text-right">
+                                <a class="btn btn-filled col-sm-offset-3 col-sm-6 col-xs-12" ng-click="openReservaDialog()">Reservar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" data-ng-if="horarios" data-ng-show="horarios && isEmpty(horarios)">
+        <div class="col-xs-12 text-center">
+            <h4>No existen profesionales disponibles para atenderte en este horario.</h4>
+        </div>
+    </div>
+</div>
+</div>
+</div>

@@ -1,0 +1,28 @@
+<form id="register-modal" name="form" novalidate class="register-form">
+	<div class="modal-body">
+		<h4 class="text-center">REGISTRATE</h4>
+        <div class="form-group">
+            <input class="form-control" name="nombre" type="text" data-ng-model="object.nombre" placeholder="Nombre..." required>
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="apellido" type="text" data-ng-model="object.apellido" placeholder="Apellido..." required>
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="email" data-ng-model="object.email" placeholder="Email..." required autofocus="true">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="pass" type="password" data-ng-model="object.password" placeholder="Contraseña..." required>
+        </div>
+
+        <div class="form-group">
+			<button class="btn btn-short btn-filled" data-ng-click="register()">REGISTRAR</button>
+		</div>
+		<div class="form-group">
+			<button type="button" class="btn btn-labeled btn-primary text-left" data-ng-click="registerFB()">
+				<span class="btn-label"><i class="fa fa-facebook"></i></span>
+				Conectar vía <span class="bold">Facebook</span>
+			</button>
+		</div>
+		<div class="alert" data-ng-class="alertData.class" data-ng-show="alertData.message">{{alertData.message}}</div>
+	</div>
+</form>

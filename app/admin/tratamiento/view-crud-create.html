@@ -1,0 +1,46 @@
+<div class="container">
+	<form name="form" submit-once="create();" role="form">
+		<div class="row">
+			<div class="col-md-6">
+				<h2>Crear {{ctrlConfig.modelName}}</h2>
+			</div>
+		</div>
+		<br>
+		<h4><i class="fa fa-fw fa-file-text-o"></i> Detalles del {{ctrlConfig.modelName}}</h4>
+		<hr>
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label for="filters_id_tipo_tratamiento">Tipo de tratamiento:</label>
+				<select id="filters_id_tipo_tratamiento" class="form-control" data-ng-model="object.id_tipo_de_tratamiento" data-placeholder="Seleccionar un tipo de tratamiento" data-ui-select2>
+					<option></option>
+					<option ng-repeat="tipo in tipos_de_tratamiento" value="{{tipo.id}}">{{tipo.nombre}}</option>
+				</select>
+			</div>
+			<div class="form-group col-sm-6">
+				<label for="nombre">Nombre:</label>
+				<input id="nombre" class="form-control" type="text" name="nombre" data-ng-model="object.nombre" required autofocus />
+			</div>
+			<div class="form-group col-sm-6">
+				<label for="duracion">Duración:</label>
+				<input id="duracion" class="form-control" type="number" step="15" name="duracion" data-ng-model="object.duracion" required />
+			</div>
+			<!--
+			<div class="form-group col-sm-6">
+				<label for="precio">Precio:</label>
+				<input id="precio" class="form-control" type="number" step="0.01" name="precio" data-ng-model="object.precio" />
+			</div>
+			-->
+			<div class="form-group col-sm-6">
+				<label for="descripcion">Descripción:</label>
+				<textarea id="descripcion" class="form-control" name="descripcion" data-ng-model="object.descripcion"></textarea>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12 pull-right text-right">
+				<a onclick="history.back()" class="btn btn-warning" type="button"><i class="fa fa-fw fa-backward"></i> Atrás</a>
+				<button data-ng-disabled="form.$invalid" class="btn btn-success" type="submit"><i class="fa fa-fw fa-save"></i> Guardar</button>
+			</div>
+		</div>
+	</form>
+</div>

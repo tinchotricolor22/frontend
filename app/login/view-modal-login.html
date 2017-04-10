@@ -1,0 +1,28 @@
+<form id="login-modal" name="form" novalidate data-submit-once="login()" class="login-form">
+	<div class="modal-body">
+		<h4 class="text-center">LOGIN</h4>
+		<div class="form-group">
+			<input type="email" class="form-control" name="email" data-ng-model="email" placeholder="Email..." required autofocus>
+		</div>
+		<div class="form-group">
+			<input type="password" class="form-control" name="password" data-ng-model="password" placeholder="Contraseña..." required>
+		</div>
+		<div class="form-group">
+			<button class="btn btn-short btn-filled" type="submit">ENTRAR</button>
+		</div>
+		<div class="form-group">
+			<button type="button" data-ng-click="facebookLogin()" class="btn btn-labeled btn-primary text-left">
+				<span class="btn-label"><i class="fa fa-facebook"></i></span>
+				Conectar vía <span class="bold">Facebook</span>
+			</button>
+		</div>
+		<div class="form-group text-center" data-ng-controller="MainController">
+			<span>¿Primera vez? </span>
+			<a href='' data-ng-click="security.closeLogin(); openRegisterDialog()">Registrate</a>
+		</div>
+        <div class="form-group text-center olvide-contrasenia-container">
+            <a class="olvide-contrasenia-text" href='' data-ng-click="security.closeLogin(); openChangePasswordDialog()">¿Olvidaste tu contraseña?</a>
+        </div>
+		<div class="alert" data-ng-class="authError.class" data-ng-show="authError.message">{{authError.message}}</div>
+	</div>
+</form>

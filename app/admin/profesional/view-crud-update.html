@@ -1,0 +1,155 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<h2>Modificar {{ctrlConfig.modelName}}</h2>
+		</div>
+	</div>
+	<br>
+	<form id="submitPRO" name="form" submit-once="update();" role="form">
+		<div class="row">
+			<div class="col-md-12">
+				<h4><i class="fa fa-fw fa-file-text-o"></i> Detalles del {{ctrlConfig.modelName}}</h4>
+				<hr>
+			</div>
+		</div>
+		<div class="row" ng-init="showObject = true">
+            <div class="form-group col-xs-12 col-sm-4">
+                <div class="form-group col-xs-12 text-center nopadding">
+                    <div ng-show="showObject">
+                        <img ng-src="{{object.url_foto_perfil}}" style="width: 100%;" />
+                    </div>
+                    <div ng-show="showBase64">Imagen:
+                        <div class="cropArea">
+                            <img-crop image="myImage" area-type="square" result-image-format="image/jpeg" result-image="myCroppedImage"></img-crop>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 text-center nopadding">
+                    <span><h4>Cambiar imagen de perfil</h4></span>
+                    <center><input id="fake-input-file" onchange="angular.element(this).scope().upload(this.files)" type="file" name="logo" value="Subir" /></center>
+                </div>
+            </div>
+			<div class="form-group col-xs-12 col-sm-8">
+				<div class="row">
+					<div class="form-group col-xs-12 col-sm-6">
+						<label for="nombre">Nombre:</label>
+						<input id="nombre" class="form-control" type="text" name="nombre" data-ng-model="object.nombre" required />
+					</div>
+					<div class="form-group col-xs-12 col-sm-6">
+						<label for="apellido">Apellido:</label>
+						<input id="apellido" class="form-control" type="text" name="apellido" data-ng-model="object.apellido" required />
+					</div>
+<!--					<div class="form-group col-xs-12 col-sm-6">
+						<label for="dni">DNI:</label>
+						<input id="dni" class="form-control" type="number" name="dni" data-ng-model="object.dni" required />
+					</div>-->
+					<div class="form-group col-xs-12 col-sm-6">
+						<label for="telefono">Teléfono:</label>
+						<input id="telefono" class="form-control" type="text" name="telefono" data-ng-model="object.telefono" maxlength="20" />
+					</div>
+					<div class="form-group col-xs-12">
+						<label for="descripcion">Descripción:</label>
+						<textarea id="descripcion" class="form-control" name="descripcion" data-ng-model="object.descripcion"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 pull-right text-right">
+				<a onclick="history.back()" class="btn btn-warning" type="button"><i class="fa fa-fw fa-backward"></i> Atrás</a>
+				<button data-ng-disabled="form.$invalid" class="btn btn-success" type="submit"><i class="fa fa-fw fa-save"></i> Guardar</button>
+			</div>
+		</div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <h4><i class="fa fa-fw fa-clock-o"></i> Horarios del {{ctrlConfig.modelName}}</h4>
+                <hr>
+            </div>
+            <div class="col-md-12 text-right">
+                <a class="btn btn-success" ng-click="agregarIntervaloOpen()" type="button"><i class="fa fa-fw fa-plus"></i> Agregar intervalo</a>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-12">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Día</th>
+                            <th>Hora inicio intervalo</th>
+                            <th>Hora fin intervalo</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="intervalo in intervalos_actividad">
+                            <td>{{intervalo.dia | ucFirst}}</td>
+                            <td class="text-center">{{intervalo.desde}}</td>
+                            <td class="text-center">{{intervalo.hasta}}</td>
+                            <td data-title="''" class="text-center" style="width: 64px;">
+                                <div class="btn-group btn-group-xs">
+                                    <a class="btn btn-danger btn-xs" confirm-button="quitarIntervalo(intervalo.index_dia, intervalo.index_intervalo)" data-tooltip="Eliminar"><i class="fa fa-trash-o"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <h4><i class="fa fa-fw fa-scissors"></i> Tratamientos del {{ctrlConfig.modelName}}</h4>
+                <hr>
+            </div>
+            <div class="col-md-12 text-right">
+                <a class="btn btn-success" ng-click="asociarTratamientoOpen()" type="button"><i class="fa fa-fw fa-plus"></i> Asociar tratamiento</a>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-12">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Tratamiento</th>
+                            <th>Descripción</th>
+                            <!--<th>Precio</th>-->
+                            <th>Duración</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="obj in tratamientos">
+                            <td data-title="'Nombre'" sortable="nombre">
+                                {{obj.nombre}}
+                            </td>
+                            <td data-title="'Descripción'" sortable="descripcion">
+                                {{obj.descripcion | cut:true:100:' ...'}}
+                            </td>
+    <!--						<td data-title="'Precio'" sortable="precio">
+                                {{obj.precio}}
+                            </td>-->
+                            <td data-title="'Duración'" sortable="duracion">
+                                {{obj.duracion * obj.centro.duracion_fraccion}}
+                            </td>
+                            <td data-title="''" class="text-center" style="width: 64px;">
+                                <div class="btn-group btn-group-xs">
+                                    <a class="btn btn-danger btn-xs" confirm-button="desasociarTratamiento(obj)" data-tooltip="Eliminar"><i class="fa fa-trash-o"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12 pull-right text-right">
+                <a onclick="history.back()" class="btn btn-warning" type="button"><i class="fa fa-fw fa-backward"></i> Atrás</a>
+                <button data-ng-disabled="form.$invalid" class="btn btn-success" type="submit"><i class="fa fa-fw fa-save"></i> Guardar</button>
+            </div>
+        </div>
+    </form>
+</div>

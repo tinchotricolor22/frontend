@@ -1,0 +1,93 @@
+<div class="container-fluid" resizeWindow>
+	<!--
+	<div class="row">
+		<div class="col-md-6">
+			<h2>Calendario de reservas</h2>
+		</div>
+		<div class="col-md-6 text-right">
+			<a ng-click="openReservaModal()" class="btn btn-success" type="button"><span></span><i class="fa fa-fw fa-plus"></i> Crear reserva</a>
+		</div>
+	</div>
+	<hr>
+	-->
+	<div class="well well-sm">
+		<form name="form">
+			<div class="row">
+				<div data-ng-show="modoDia">
+					<div class="col-md-6 text-left">
+						<div id="input-filtro-profesionales">
+							<select ng-change="ChangeSelect();" id="filters_id_profesionales_select" class="form-control" data-ng-model="id_profesionales_select" data-placeholder="Filtrar por profesionales" data-ui-select2 multiple>
+								<option data-ng-repeat="profesional in profesionales | orderBy: 'apellido' | orderBy: 'nombre'" value="{{profesional.id}}">{{profesional.nombre}} {{profesional.apellido}}</option>
+							</select>
+							<!--<p ng-show="maxVisibles<profesionales.length" class="nomargin">Máx. profesionales visibles: {{maxVisibles}}</p>-->
+						</div>
+						<div id="vaciar-filtro">
+							<button class="btn btn-info" type="button" data-ng-click="vaciarFiltro()" title="Vaciar filtro"><i class="fa fa-fw fa-times"></i> Vaciar</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 text-left" data-ng-hide="modoDia">
+					<select ng-change="filtroClientSide();" id="filters_id_profesional" class="form-control" data-ng-model="filters.id_profesional" data-placeholder="Filtrar por profesional" data-ui-select2>
+						<option data-ng-repeat="profesional in profesionales | orderBy: 'apellido' | orderBy: 'nombre'" value="{{profesional.id}}">{{profesional.nombre}} {{profesional.apellido}}</option>
+					</select>
+				</div>
+				<div class="col-md-4 text-left">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-change="filtroClientSide();"data-ng-model="filters.ocultar_cancelados" /> Ocultar cancelados
+						</label>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="row">
+		<div class="col-sm-4 text-left">
+			<div class="btn-group">
+				<button type="button" class="btn btn-default" data-ng-click="moverCalendario('prev')"><i class="fa fa-fw fa-angle-left"></i></button>
+				<button type="button" class="btn btn-default" data-ng-click="moverCalendario('today')">Hoy</button>
+				<button type="button" class="btn btn-default" data-ng-click="moverCalendario('next')"><i class="fa fa-fw fa-angle-right"></i></button>
+			</div>
+			<div class="btn-group">
+				<button class="btn btn-default active" data-ng-model="modoDia" btn-radio="true">Dia</button>
+				<button class="btn btn-default" data-ng-model="modoDia" btn-radio="false">Semana</button>
+			</div>
+		</div>
+		<div id="calendar-title" class="col-sm-4 text-center">
+			<h2>{{title}}</h2>
+			<h3 data-ng-hide="modoDia">{{nombreProfesionalSemana}}</h3>
+		</div>
+		<div class="col-xs-4 text-right form-inline">
+			<div class="form-group" data-ng-show="modoDia">
+				<span class="input-group">
+					<input datepicker-popup  id="fecha" type="text" class="form-control text-center" data-ng-click="datepicker.open($event)" data-ng-model="datepicker.value" is-open="datepicker.opened" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="datepicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</span>
+			</div>
+
+		</div>
+	</div>
+</div>
+<br>
+<div class="container-fluid calendarios" data-ng-if="centroActivo">
+	<div class="row" data-ng-if="!modoDia">
+		<div class="col-xs-12">
+			<div id="calendarioSemana" ui-calendar="fullCalendarOptionsSemana" data-ng-model="turnosSemana"></div>
+		</div>
+	</div>
+	<div class="row" data-ng-if="modoDia">
+        <div class="col-xs-12">
+            <a ng-hide="indexInicialVisibles==0" data-ng-click="MoveVisibles('left')" class="pull-left btn btn-success"><i class="fa fa-chevron-left"></i></a>
+            <a ng-hide="cantVisibles+indexInicialVisibles==profesionales.length" class="pull-right btn btn-success" data-ng-click="MoveVisibles('right')"><i class="fa fa-chevron-right"></i></a>
+        </div>
+        <div class="col-xs-12 multi-calendarios" data-ng-style="{'minWidth': minWidthCalendarios}">
+			<div class="agenda-profesional" data-ng-repeat="(id_profesional, profesional) in turnosDia" data-ng-style="{'width': widthPorcentajeCalendario, 'minWidth': minWidthCalendario + 'px'}" data-ng-show="turnosDia[id_profesional].visible" data-id-profesional="{{id_profesional}}">
+				<h3 data-ng-click="profesionalClick(profesional.profesional.id)" class="text-center" data-ng-class="{'firstCol': turnosDia[id_profesional].showTime}">{{profesional.profesional.nombre}} {{profesional.profesional.apellido}}</h3>
+				<div id="calendariosDia_{{id_profesional}}" ui-calendar="fullCalendarOptionsDia" data-ng-model="turnosDia[id_profesional].turnos" data-ng-class="{'show-time': turnosDia[id_profesional].showTime}"></div>
+			</div>
+
+		</div>
+	</div>
+</div>

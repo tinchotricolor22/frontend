@@ -1,0 +1,40 @@
+<div class="sobre-nosotros-index-section">
+	<div class="container">
+		<div class="row text-center">
+			<div class="col-md-12">
+				<h2 class="sobre-nosotros-index-section-title between-lines">{{contact.tipoUsuario == 'profesional' ? "Contactanos para una reunión" : "Contactanos"}}</h2>
+			</div>
+		</div>
+		<div class="row text-left">
+			<div class="col-md-8 col-md-offset-2">
+				<h4 class="text-center">Dejanos tus datos y nos contactaremos a la brevedad</h4>
+                <div class="row text-center" data-ng-hide="contact.tipoUsuario == 'profesional'">
+                    <div class="col-xs-12">
+                        <a href="#/sobre-nosotros/contactanos/profesional" scroll-to="header-navbar"><strong class="rojo">¿Tenés un centro de belleza y bienestar?</strong></a>
+                    </div>
+                </div>
+				<form id="contactanos" name="contactanos" novalidate class="contactanos-form">
+					<div class="form-group">
+						<input class="form-control" name="nombre" data-ng-model="contact.nombre_completo" placeholder="Nombre y apellido..." required autofocus="true">
+					</div>
+					<div class="form-group" data-ng-hide="contact.tipoUsuario != 'profesional'">
+						<input class="form-control" name="telefono" data-ng-model="contact.telefono" placeholder="Teléfono de contacto...">
+					</div>
+					<div class="form-group">
+						<input class="form-control" name="email" data-ng-model="contact.email" placeholder="Email..." required >
+					</div>
+					<div class="form-group">
+						<textarea class="form-control" name="comentario" data-ng-model="contact.mensaje" placeholder="Comentarios..." rows="8"></textarea>
+					</div>
+                    <input type="hidden" name="tipoUsuario" data-ng-model="contact.tipoUsuario">
+				</form>
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<a class="btn btn-lg btn-filled" ng-click="sendMessage()">Enviar</a>
+					</div>
+				</div>
+                <hr>
+			</div>
+		</div>
+	</div>
+</div>

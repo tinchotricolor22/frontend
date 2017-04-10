@@ -1,0 +1,25 @@
+<div class="container">
+	<form name="form" submit-once="create();" role="form">
+		<div class="row">
+			<div class="col-md-6">
+				<h2>Crear {{ctrlConfig.modelName}}</h2>
+			</div>
+		</div>
+		<br>
+		<h4><i class="fa fa-fw fa-file-text-o"></i> Detalles del {{ctrlConfig.modelName}}</h4>
+		<hr>
+		<div class="row">
+			<div class="form-group col-md-6">
+				<label for="nombre">Nombre:</label>
+				<input id="nombre" class="form-control" type="text" name="nombre" data-ng-model="object.nombre" required autofocus />
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12 pull-right text-right">
+				<a onclick="history.back()" class="btn btn-warning" type="button"><i class="fa fa-fw fa-backward"></i> Atrás</a>
+				<button data-ng-disabled="form.$invalid" class="btn btn-success" type="submit"><i class="fa fa-fw fa-save"></i> Guardar</button>
+			</div>
+		</div>
+	</form>
+</div>

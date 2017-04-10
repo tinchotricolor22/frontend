@@ -1,0 +1,24 @@
+[
+{
+	"nombre": "Erica",
+	"apellido": "Rivas",
+	"telefonos": {"Particular":45842345, "Celular":15567532414}
+	
+}
+,
+{
+	"nombre": "Bruno",
+	"apellido": "Diaz",
+	"telefonos": {"Particular":45042336, "Celular":1577648632} 
+	
+	
+}
+,
+{
+	"nombre": "Mariana",
+	"apellido": "Tara",
+	"telefonos": {"Particular":46854324, "Celular":1578963455}
+	
+}
+
+]

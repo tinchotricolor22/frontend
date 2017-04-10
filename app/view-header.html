@@ -1,0 +1,109 @@
+<div>
+	<div id="header-info" class="navbar navbar-static-top index-header" role="banner">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+					<span class="sr-only">Menu</span>
+					<i class="fa fa-reorder fa-lg"></i>
+				</button>
+            </div>
+            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+                <ul class="nav navbar-nav navbar-left">
+                	<i class="fa fa-phone"></i> <span style="padding-right : 10px;">(+54 11) 57511713</span><i class="fa fa-envelope"></i> <a href="mailto:martinemanuelmorales@gmail.com" target="_top">martinemanuelmorales@gmail.com</a>
+                </ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li data-ng-show="!security.isAuthenticated();"><a id="login-button" href="#/login">Ingresar<span class="dash-groove-right"></span></a></li>
+					<li data-ng-show="!security.isAuthenticated();"><a id="facebook-header" class="fa fa-facebook" href="https://www.facebook.com/alaqtcriaste"></a></li>
+		            <li data-ng-show="security.isAuthenticated();" class="dropdown">
+						<a class="dropdown-toggle btn btn-default index-header-user-dropdown" type="button">
+							<i class="fa fa-fw fa-user"></i>
+							{{security.currentUser.nombre}}
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li role="presentation"><a role="menuitem" href="#/mi-cuenta" scroll-to="header-navbar"><i class="fa fa-fw fa-user"></i> Mi cuenta</a></li>
+	                        <li role="presentation"><a role="menuitem" href="#/mis-reservas" scroll-to="header-navbar"><i class="fa fa-fw fa-calendar"></i> Mis reservas</a></li>
+							<li role="presentation"><a role="menuitem" data-ng-show="security.currentUser.permissions.accessadmin || security.currentUser.permissions.superuser" href="/admin.html"><i class="fa fa-fw fa-gear"></i> Panel de administración</a></li><!-- Cambiar a ng-show -->
+							<li role="presentation" class="divider"></li>
+							<li role="presentation"><a role="menuitem" data-ng-click="security.logout();"><i class="fa fa-fw fa-sign-out"></i> Salir</a></li>
+						</ul>
+		            </li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<div id="header-jumbotron" class="container" data-ng-init="dropdownHeader.init();">
+		<div class="page-header row">
+			<div class="col-md-2">
+				<form action="" class="search-form">
+                	<div class="form-group has-feedback">
+            			<label for="search" class="sr-only">Buscar</label>
+            			<input type="text" class="form-control" name="search" id="search" placeholder="Buscar...">
+              			<span class="glyphicon glyphicon-search form-control-feedback"></span>
+            		</div>
+            	</form>
+			</div>
+			<h1 class="col-md-4 col-md-offset-2 page-title">A la que te criaste</h1>
+			<div class="col-md-1 col-md-offset-3"><a><i class="fa fa-shopping-bag fa-2"><span class="bag-products-number">0</span></i></a></div>
+		</div>
+		<nav id="header-navbar" class="navbar"> <!--onmouseout="$('.nav-link.on').removeClass('on'); $('.menu.secondary .show').removeClass('show');">-->
+			<div class="menu primary container-fluid">
+   				 <div class="collapse navbar-collapse centerul-50">
+   				 	<ul class="nav navbar-nav centerul50">
+   				 		<li><a class="nav-link" href="#" data-dropdown="zapatos">ZAPATOS</a></li>
+				        <li><a class="nav-link" href="#" data-dropdown="remeras">REMERAS</a></li>
+				        <li><a class="nav-link" href="#" data-dropdown="pantalones">PANTALONES</a></li>
+				        <li><a class="nav-link" href="#" data-dropdown="carteras">CARTERAS</a></li>
+				        <li><a class="nav-link" href="#" data-dropdown="varios">VARIOS</a></li>
+   				 	</ul>
+   				 </div>
+			</div>
+			<section class="menu secondary">
+				<div class="container row zapatos">
+					<div class="col-md-2">
+						<h6>Mujer</h6>
+						<ul>
+							<li>Tacos</li>
+							<li>Lisos</li>
+						</ul>
+					</div>
+					<div class="col-md-2">
+						<h6>Hombre</h6>
+						<ul>
+							<li>Formal</li>
+							<li>Lisos</li>
+						</ul>
+					</div>
+					<div class="col-md-2">
+						<h6>Hombre</h6>
+						<ul>
+							<li>Formal</li>
+							<li>Lisos</li>
+						</ul>
+					</div>
+					<div class="col-md-2">
+						<img src="https://scontent-mia1-1.xx.fbcdn.net/v/t1.0-9/14705801_529812077209544_397771351235068017_n.jpg?oh=28d0e0d0d06e63024cce9b02be5375b6&oe=592E65A4" class="img-10px">
+					</div>
+				</div>
+				<div class="container row remeras">
+					<div class="col-md-4">
+						<h6>Varios</h6>
+						<ul>
+							<li>Animadas</li>
+							<li>Lisas</li>
+						</ul>
+					</div>
+				</div>
+				<div class="pantalones">
+				</div>
+				<div class="carteras">
+				</div>
+				<div class="varios">
+				</div>
+			</section>
+		</nav>
+
+		<hr class="row">
+	</div>
+
+</div> 

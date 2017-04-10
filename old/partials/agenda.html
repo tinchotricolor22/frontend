@@ -1,0 +1,131 @@
+<h1> Agenda Telefonica <img src="telefono_icono.png"width="50" height="50"></h1>
+		
+		
+		<p>Ingrese un nuevo contacto</p>
+		<div class="row has-error">
+					<div class="col-xs-12"> 
+						<form class="form form-horizontal" name="formulario">
+					
+							<div class="form-group" ng-class="{'has-error':formulario.nombre.$invalid && formulario.nombre.$dirty}">
+								<label>Nombre:</label>
+								<input type="text" ng-model="nombre" ng-required="true" name="nombre" id="nombre" class="form-control">
+								<span ng-if="formulario.nombre.$invalid && formulario.nombre.$dirty" class="help-block"> El nombre es requerido</span>
+							</div>
+							
+							<div class="form-group" ng-class="{'has-error':formulario.apellido.$invalid && formulario.apellido.$dirty}">
+								<label>Apellido:</label>
+								<input type="text" ng-model="apellido" ng-required="true" name="apellido" id="apellido" class="form-control">
+								<span ng-if="formulario.apellido.$invalid && formulario.apellido.$dirty" class="help-block">El apellido es requerido</span>
+							</div>
+								
+							<div class="form-group" ng-class="{'has-error':formulario.telefono.$invalid && formulario.telefono.$dirty}">
+								<label>Numero de Telefono:</label>
+								<select name="tipotelefonos" id="tipotelefonos"  style="13px" ng-model="tipotelefono">
+									<option>Celular</option>
+									<option>Trabajo</option>
+									<option>Personal</option>
+									
+								</select>
+								<input type="text" ng-model="telefono" ng-required="true" name="telefono" id="telefono" class="form-control">
+								<span ng-if="formulario.telefono.$invalid && formulario.telefono.$dirty" class="help-block">El teléfono es requerido</span>
+							</div>
+							
+						</form>
+						
+						<button ng-disabled="formulario.$invalid" type="button" ng-click="crear()" class="btn btn-success">Grabar contacto</button>
+						<button type="button" ng-click="recarga()" class="btn btn-info">Recargar contactos</button>
+	
+					</div>
+		</div>
+				
+		<div class="row">
+			<div class="col-md-6 hidden-xs">
+			</div>
+					
+			<div class="col-md-6">
+				<table id="agenda" class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Telefono</th>
+							<th>Eliminar</th>
+							<th>Modificar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="reg in listado" class="table table-bordered">
+							<td>{{reg.nombre}}</td>
+							<td>{{reg.apellido}}</td>
+							<td>	
+								<table class="table table-bordered">
+									<tr ng-repeat="(key,val) in reg.telefonos">
+										<td >{{key}}</td>
+										<td >{{val}}</td>
+									</tr>
+								</table>
+							</td>
+							<td><button type="button" ng-click="eliminar(reg.id)" class="btn btn-success">ELIMINAR</button></td>
+							<td><button type="button" ng-click="modificar(reg)" class="btn btn-success">MODIFICAR</button></td>
+						</tr>
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<script type="text/javascript">
+		
+		var contador = 0;
+		$(function() {
+               /* var tabla = $("#agenda");
+				$(tabla).empty();
+				$(tabla).append("<tr id='fila"+contador+"'></tr>");
+				$("#fila"+contador).append("<th>Nombre</th>");	
+				$("#fila"+contador).append("<th>Apellido</th>");	
+				$("#fila"+contador).append("<th>Telefono</th>");
+				$("#fila"+contador).append("<th>Opciones</th>");
+                
+				recargarJson(); */
+                /*$.getJSON("Registros.json", function(datos) {
+                    $.each(datos, function(id, valor) {
+                        grabarJSON(id + 1,"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp"+valor.nombre, "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp"+valor.apellido,valor.telefonos.celular+"<br>"+valor.telefonos.particular+"<br><br>");
+                    });
+       					});*/
+       });					
+			
+			
+	
+		
+		
+		function grabarJSON(pos, nombre, apellido, telefono) {
+           var filaTabla = $("#tr1");
+           $("#agenda").append("<tr id='fila" + pos + "'><td> "+ nombre + "</td><td>"+ apellido + "</td><td>" + telefono + "</td><td><button type='button' onclick='eliminar(\"fila" + pos + "\")'> Eliminar </button> </td></tr>");
+             }
+		
+		function eliminar (indice){
+
+			$("#"+indice).remove();
+			alert ("Se ha eliminado la "+ indice);
+
+		}
+		
+		function recargarJson(){
+					var tabla = $("#agenda");
+					$(tabla).empty();
+					$(tabla).append("<tr id='fila"+contador+"'></tr>");
+					$("#fila"+contador).append("<th>Nombre</th>");	
+					$("#fila"+contador).append("<th>Apellido</th>");	
+					$("#fila"+contador).append("<th>Telefono</th>");
+					$("#fila"+contador).append("<th>Opciones</th>");
+					$(tabla).append("<tr id='tr1'></tr>");
+					
+	                $.getJSON("Registros.json", function(datos) {
+                    $.each(datos, function(id, valor) {
+                        grabarJSON(id + 1, valor.nombre, valor.apellido, valor.telefonos.celular+"<br>"+valor.telefonos.particular);
+                    });
+       					});
+       	}
+		
+		</script>
+
+	

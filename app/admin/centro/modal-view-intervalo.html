@@ -1,0 +1,28 @@
+<form name="form" data-ng-submit="modal.select()">
+	<div class="modal-header">
+		<h4>Seleccionar intervalo de tiempo</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 form-group">
+				<label for="id_dia_semana">Día de la semana:</label>
+				<select id="id_dia_semana" class="form-control timepicker-top-margin" data-ng-model="modal.dia" data-placeholder="Seleccionar una día" data-ui-select2 required>
+					<option></option>
+					<option ng-repeat="dia in dias_semana" value="{{dia.id}}">{{dia.nombre}}</option>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-4 form-group">
+				<label>Hora de inicio:</label>
+				<timepicker data-ng-model="modal.hora_inicio" minute-step="15"></timepicker>
+			</div>
+			<div class="col-xs-12 col-sm-4 form-group">
+				<label>Hora de fin:</label>
+				<timepicker data-ng-model="modal.hora_fin" minute-step="15"></timepicker>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-warning" type="button" ng-click="modalInstance.dismiss()"><i class="fa fa-fw fa-backward"></i> Atrás</button>
+		<button class="btn btn-success" type="submit" data-ng-disabled="form.$invalid"><i class="fa fa-fw fa-check"></i> Aceptar</button>
+	</div>
+</form>

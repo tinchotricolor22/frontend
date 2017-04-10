@@ -1,0 +1,45 @@
+<div class="modal-header">
+	<h4>Agregar reserva con {{profesional.nombre_completo}}</h4>
+</div>
+<form action="" name="form"  data-submit-once="save()"><!--novalidate="novalidate"-->
+    <div class="modal-body">
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label for="cliente">Cliente:</label>
+                <input id="cliente" class="form-control" type="text" name="cliente" data-ng-model="reserva.nombre" maxlength="90" required/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="contacto">Teléfono del cliente:</label>
+                <input id="contacto" class="form-control" type="text" name="contacto" data-ng-model="reserva.contacto" maxlength="255" required />
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="email">Email del cliente:</label>
+                <input id="email" class="form-control" type="email" name="email" data-ng-model="reserva.email" maxlength="255" required/>
+            </div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="form-group col-sm-12">
+                        <label for="id_tratamiento">Tratamiento:</label>
+                        <select id="id_tratamiento" class="form-control" data-ng-model="reserva.turnos[0].id_tratamiento" data-placeholder="Seleccionar un tratamiento..." data-ui-select2 required>
+                            <option></option>
+                            <option ng-repeat="tratamiento in tratamientos" value="{{tratamiento.id}}">{{tratamiento.nombre}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-12 timepicker-reserva-preset-row">
+                        <label>Hora:</label>
+                        <timepicker class="timepicker-reserva-preset" data-ng-model="tiempoReserva" show-meridian="false" minute-step="15"></timepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-8">
+                <label for="observaciones">Observaciones (opcional):</label>
+                <textarea id="observaciones" class="form-control" name="observaciones" data-ng-model="reserva.observaciones" style="height: 110px;"></textarea>
+            </div>
+        </div>
+        <br>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" type="button" ng-click="modalInstance.dismiss()"><i class="fa fa-fw fa-times-circle"></i> Cancelar</button>
+        <button class="btn btn-success" type="submit"><i class="fa fa-save"></i> Guardar</button>
+    </div>
+</form>

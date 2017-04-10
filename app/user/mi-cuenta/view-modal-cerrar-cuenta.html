@@ -1,0 +1,18 @@
+<form id="login-modal" name="form" novalidate class="login-form">
+	<div class="modal-body">
+        <i class="pull-right cr-pointer fa fa-lg fa-times" data-ng-click="modalInstance.dismiss()"></i>
+		<h4 class="text-center">CERRAR CUENTA</h4>
+        <hr>
+        <h5 class="text-center bold">¿Está seguro que desea cerrar su cuenta?</h5>
+        <hr>
+        <h5 class="text-center">Si es así, escriba su password a continuación:</h5>
+        <div class="form-group">
+            <input type="password" class="form-control" name="password" data-ng-model="password" placeholder="Contraseña" autofocus="true" required>
+        </div>
+        <br>
+		<div class="alert" data-ng-class="authError.class" data-ng-show="authError.message">{{authError.message}}</div>
+        <div class="text-center">
+            <a href="" class="btn btn-filled btn-md" data-ng-click="closeAccount()">Deseo Cerrar Mi Cuenta</a>
+        </div>
+	</div>
+</form>

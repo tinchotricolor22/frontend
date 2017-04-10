@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="wonoma">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="reserva,peluquerías,centros,belleza,bienestar,wonoma" />
+    <meta http-equiv="Content-Language" content="es"/>
+    <meta name="author" content="loopear.com" />
+    <meta name="copyright" content="wonoma" />
+    <meta name="distribution" content="global"/>
+    <meta name="description"
+          content="Reserva de turnos en peluquerías y sitios de belleza y bienestar.
+          Reserva turnos con profesionales en tu peluquería favorita." />
+    <meta name="robots" content="all" />
+    <title>A la que te criaste</title>
+    <link rel="shortcut icon" href="assets/img/favicon.ico">
+    <link rel="icon" type="image/png" href="assets/img/apple-touch-icon.png" />
+
+    <!-- Vendors CSS -->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/angular-loading-bar/build/loading-bar.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/angular-growl/build/angular-growl.min.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/angular-ui/build/angular-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="vendor/ng-table/ng-table.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2-bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/animate.css/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/fullcalendar/fullcalendar.css" />
+	
+    <!-- AM CSS  -->
+	<link rel="stylesheet" type="text/css" href="assets/css/styles.css" />
+</head>
+<body class="amely" ng-controller="MainController">
+<div growl></div>
+<!--  Header  -->
+<header id="header" ng-include="'app/view-header.html'"></header>
+<!--   Body   -->
+<div ng-view id="main-view" class="main-view"></div>
+<!--  Footer  -->
+<footer id="footer" ng-include="'app/view-footer.html'"></footer>
+</body>
+
+<!-- Vendors -->
+<script src="vendor/jquery/dist/jquery.min.js"></script>
+<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="vendor/angular/angular.js"></script>
+<script src="vendor/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="vendor/angular-resource/angular-resource.min.js"></script>
+<script src="vendor/angular-route/angular-route.min.js"></script>
+<script src="vendor/angular-ui/build/angular-ui.min.js"></script>
+<script src="http://code.angularjs.org/1.0.8/i18n/angular-locale_es-ar.js"></script>
+<script src="vendor/angular-bootstrap/ui-bootstrap.min.js"></script>
+<script src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="vendor/angular-animate/angular-animate.min.js"></script>
+<script src="vendor/angular-loading-bar/build/loading-bar.js"></script>
+<script src="vendor/angular-growl/build/angular-growl.min.js"></script>
+<script src="vendor/angular-facebook/lib/angular-facebook.js"></script>
+<script src="vendor/angular-bindonce/bindonce.min.js"></script>
+<script src="vendor/select2/select2.min.js"></script>
+<script src="vendor/ng-table/ng-table.js"></script>
+<script src="vendor/underscore/underscore.js"></script>
+<script src="vendor/angular-underscore-module/angular-underscore-module.js"></script>
+<script src="vendor/restangular/dist/restangular.min.js"></script>
+<script src="vendor/less/dist/less-1.7.3.min.js"></script>
+<script src="vendor/moment/moment.js"></script>
+<script src="vendor/fullcalendar/fullcalendar.min.js"></script>
+<script src="vendor/angular-ui-calendar/src/calendar.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script src='vendor/lodash/dist/lodash.underscore.min.js'></script>
+<script src='vendor/angular-google-maps/dist/angular-google-maps.min.js'></script>
+<script src="vendor/angular-local-storage/dist/angular-local-storage.min.js"></script>
+<script src="vendor/angular-scroll/angular-scroll.js"></script>
+
+<!-- Angular -->
+<script src="app/angular-app.js"></script>
+<script src="app/config.js"></script>
+<script src="app/routes.js"></script>
+<script src="app/model-base.js"></script>
+<script src="app/main-controller.js"></script>
+<script src="app/service-http-interceptor.js"></script>
+<script src="app/services/angular-momentjs-module.js"></script>
+
+<!-- Security -->
+<script src="app/security/service-security.js"></script>
+<script src="app/security/service-authorization.js"></script>
+<script src="app/security/service-interceptor.js"></script>
+<script src="app/security/service-retryqueue.js"></script>
+
+<!-- Crud -->
+<script src="app/crud/controller-base-crud.js"></script>
+<script src="app/crud/directive-confirm-button.js"></script>
+<script src="app/crud/directive-submit-once.js"></script>
+<script src="app/crud/directive-select2.js"></script>
+<script src="app/crud/filter-uc-first.js"></script>
+<script src="app/crud/filter-cut.js"></script>
+
+<!-- Home -->
+<script src="app/home/controller-home.js"></script>
+<script src="app/service-dropdown-header.js"></script>
+
+<!-- Register Email -->
+<script src="app/home/email-info/controller-crud.js"></script>
+<script src="app/home/email-info/model.js"></script>
+
+<!-- Reserva -->
+<script src="app/reserva/controller-crud.js"></script>
+
+<!--<script type="text/javascript" src="app/reserva/controller-select-horario-reserva.js"></script>-->
+<script src="app/reserva/model-reserva.js"></script>
+<script src="app/reserva/controller-mis-reservas.js"></script>
+
+<!-- Tratamiento -->
+<script src="app/admin/tratamiento/controller-crud.js"></script>
+<script src="app/admin/tratamiento/model-tratamiento.js"></script>
+
+<!-- Tipo de Tratamiento -->
+<script src="app/admin/tipo_de_tratamiento/controller-crud.js"></script>
+<script src="app/admin/tipo_de_tratamiento/model-tipo-de-tratamiento.js"></script>
+
+<!-- Centro -->
+<script src="app/admin/centro/controller-crud.js"></script>
+<script src="app/admin/centro/model-centro.js"></script>
+<script src="app/perfil-centro/controller-perfil-centro.js"></script>
+<script src="app/perfil-centro/controller-perfil-centro-new.js"></script>
+<script src="app/perfil-centro/controller-map-perfil-centro.js"></script>
+
+<!-- Profesional -->
+<script src="app/admin/profesional/controller-crud.js"></script>
+<script src="app/admin/profesional/model-profesional.js"></script>
+
+<!-- Turno -->
+<script src="app/turno/controller-crud.js"></script>
+<script src="app/turno/model-turno.js"></script>
+
+<!-- Login -->
+<script src="app/login/controller-login.js"></script>
+<script src="app/login/model-auth.js"></script>
+
+<!-- User -->
+<script src="app/user/controller-crud.js"></script>
+<script src="app/user/model-user.js"></script>
+<script src="app/user/service-user.js"></script>
+<script src="app/user/mi-cuenta/controller-mi-cuenta.js"></script>
+<script src="app/user/mi-cuenta/controller-landing-cambiar-password.js"></script>
+<script src="app/user/mi-cuenta/controller-modal-cambiar-password.js"></script>
+<script src="app/user/mi-cuenta/controller-modal-cerrar-cuenta.js"></script>
+<script src="app/user/mi-cuenta/controller-modal-modificar-datos-usuario.js"></script>
+
+<!-- Sobre Nosotros -->
+<script src="app/sobre-nosotros/controller-sobre-nosotros.js"></script>
+<script src="app/sobre-nosotros/profesional/controller-sobre-nosotros-profesional.js"></script>
+<script src="app/sobre-nosotros/contactanos/controller-contactanos.js"></script>
+<script src="app/scroll-to.js"></script>
+
+</html>

@@ -1,0 +1,50 @@
+<form name="form" data-ng-submit="save()">
+	<div class="modal-header">
+		<h4>Seleccionar intervalo de bloqueo</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-sm-offset-2 form-group">
+				<label for="id_profesional">Profesional:</label>
+				<select id="id_profesional" class="form-control" data-ng-model="bloqueo.id_profesional" data-placeholder="Seleccionar un profesional" data-ui-select2 required>
+					<option value="0">Todos los profesionales</option>
+					<option ng-repeat="profesional in profesionales" value="{{profesional.id}}">{{profesional.nombre}} {{profesional.apellido}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-sm-offset-2 form-group">
+				<label for="fecha_inicio">Fecha de inicio:</label>
+				<span class="input-group timepicker-top-margin">
+					<input datepicker-popup id="fecha_inicio" type="text" class="form-control" ng-click="datepickerInicio.open($event)" ng-model="bloqueo.diahora_inicio" min-date="hoy" is-open="datepickerInicio.opened" required />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="datepickerInicio.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</span>
+			</div>
+			<div class="col-xs-12 col-sm-4 form-group">
+				<label>Hora de inicio:</label>
+				<timepicker datepickerLocaldate data-ng-model="bloqueo.diahora_inicio" minute-step="15" show-meridian="false"></timepicker>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-sm-offset-2 form-group">
+				<label for="diahora_inicio">Fecha de fin:</label>
+				<span class="input-group timepicker-top-margin">
+					<input datepicker-popup id="diahora_inicio" type="text" class="form-control" ng-click="datepickerFin.open($event)" ng-model="bloqueo.diahora_fin" min-date="bloqueo.diahora_inicio" is-open="datepickerFin.opened" required />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="datepickerFin.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</span>
+			</div>
+			<div class="col-xs-12 col-sm-4 form-group">
+				<label>Hora de fin:</label>
+				<timepicker data-ng-model="bloqueo.diahora_fin" ng-change="timepickerFinChange()" minute-step="15" show-meridian="false"></timepicker>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-warning" type="button" ng-click="modalInstance.dismiss()"><i class="fa fa-fw fa-times-circle"></i> Cancelar</button>
+		<button class="btn btn-success" type="submit" data-ng-disabled="form.$invalid"><i class="fa fa-fw fa-save"></i> Guardar</button>
+	</div>
+</form>

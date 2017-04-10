@@ -1,0 +1,25 @@
+<div class="modal-header">
+	<h4>Detalles del bloqueo</h4>
+</div>
+<div id="reserva-modal" class="modal-body">
+	<div class="row">
+		<div class="col-xs-12">
+			<dl class="dl-horizontal">
+				<dt>Inicio:</dt>
+				<dd>{{modal.moment(modal.bloqueo.diahora_inicio).format('DD/MM/YYYY HH:mm')}}</dd>
+			</dl>
+			<dl class="dl-horizontal">
+				<dt>Fin:</dt>
+				<dd>{{modal.moment(modal.bloqueo.diahora_fin).format('DD/MM/YYYY HH:mm')}}</dd>
+			</dl>
+			<dl class="dl-horizontal">
+				<dt>Profesional:</dt>
+				<dd>{{modal.bloqueo.profesional.nombre}} {{modal.bloqueo.profesional.apellido}}</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-warning" type="button" data-ng-click="modalInstance.dismiss()"><i class="fa fa-fw fa-backward"></i> Atrás</button>
+	<button class="btn btn-danger" type="button" confirm-button="modal.eliminar()"><i class="fa fa-fw fa-trash-o"></i> Eliminar bloqueo</button>
+</div>

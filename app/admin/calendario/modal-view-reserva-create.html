@@ -1,0 +1,129 @@
+<div class="modal-header">
+	<h4>Agregar reserva</h4>
+</div>
+<div class="modal-body">
+	<div class="row">
+		<div class="form-group col-sm-3">
+			<label for="cliente">Cliente:</label>
+			<input id="cliente" class="form-control" type="text" name="cliente" data-ng-model="modal.cliente" maxlength="90" required />
+		</div>
+		<div class="form-group col-sm-3">
+			<label for="contacto">Teléfono del cliente:</label>
+			<input id="contacto" class="form-control" type="text" name="contacto" data-ng-model="modal.contacto" maxlength="255" required />
+		</div>
+        <div class="form-group col-sm-3">
+            <label for="email">Email del cliente (opcional):</label>
+            <input id="email" class="form-control" type="email" name="email" data-ng-model="modal.email" maxlength="255" />
+        </div>
+        <div class="form-group col-sm-3">
+            <label for="observaciones">Observaciones:</label>
+            <textarea id="observaciones" class="form-control" name="observaciones" data-ng-model="modal.observaciones"></textarea>
+        </div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-xs-12">
+			<form name="form" data-ng-submit="modal.buscar()">
+				<div class="row">
+					<div class="col-xs-12 col-sm-4 form-group">
+						<label for="id_selected_tratamiento">Tratamiento:</label>
+						<select id="id_selected_tratamiento" class="form-control timepicker-top-margin" data-ng-model="modal.id_selected_tratamiento" data-placeholder="Seleccionar un tratamiento..." data-ui-select2 required>
+							<option></option>
+							<option ng-repeat="(index, tt) in modal.tratamientos" value="{{index}}">{{tt.nombre}}</option>
+						</select>
+					</div>
+					<div class="col-xs-12 col-sm-3 form-group">
+						<label for="fecha">Fecha:</label>
+						<span class="input-group timepicker-top-margin">
+							<input datepicker-popup id="fecha" type="text" class="form-control text-center" ng-click="modal.datepicker.open($event)" ng-model="modal.datepicker.value" min-date="modal.datepicker.minDate" is-open="modal.datepicker.opened" required />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="modal.datepicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</span>
+					</div>
+					<div class="col-xs-12 col-sm-2 form-group">
+						<label>Hora:</label>
+						<timepicker data-ng-model="modal.reserva_hora" show-meridian="false" minute-step="15"></timepicker>
+					</div>
+					<div class="col-xs-12 col-sm-3 form-group">
+						<label> </label>
+						<button class="btn btn-filled input-group timepicker-top-margin" type="submit" data-ng-disabled="form.$invalid">Buscar<span class="hidden-sm"> turnos</span></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div data-ng-show="modal.tratamiento.id">
+		<div class="row">
+			<div class="col-xs-12">
+				<hr>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-md-3">
+				<h4 class="reserva-tratamiento-text text-center">{{modal.tratamiento.nombre}} | <span class="reserva-tratamiento-duracion-text">Duración: {{modal.tratamiento.duracion * modal.centro.duracion_fraccion}} minutos</span></h4>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-6">
+				<h4 class="reserva-centro-nombre-text text-center">{{modal.centro.nombre}}</h4>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-3">
+				<h4 class="reserva-fecha-container text-center">
+					<i class="fa fa-arrow-circle-left cr-pointer" data-ng-click="modal.bajaFecha()"></i>
+					<span class="reserva-fecha-text">{{modal.selectedTurno.fecha | date:'dd/MM/yyyy'}}</span>
+					<i class="fa fa-arrow-circle-right cr-pointer" data-ng-click="modal.subeFecha()"></i>
+				</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 text-center reserva-profesionales-subtitulo-container">
+				<span class="reserva-profesionales-subtitulo-text">Elegí tu profesional</span>
+			</div>
+		</div>
+		<div class="reserva-peluquero-row" data-ng-repeat="profesional in modal.profesionales" data-ng-show="!modal.isLoading() && modal.horarios[profesional.id].length">
+			<div class="row">
+				<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 reserva-peluquero-nombre-row cr-pointer" data-ng-init="profesional.visible = true" data-ng-click="profesional.visible = profesional.visible? false: true">
+					<i class="fa" data-ng-class="profesional.visible? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+					<span class="reserva-peluquero-nombre-text">{{profesional.nombre}} {{profesional.apellido}}</span>
+					<span class="reserva-peluquero-nombre-ayuda" data-ng-hide="profesional.visible"> (Click para ver horarios)</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 reserva-peluquero-body-row" data-ng-show="profesional.visible">
+					<div class="row">
+						<div class="col-md-3 col-sm-3 text-center">
+							<img class="reserva-peluquero-body-foto" ng-src="{{profesional.url_foto_perfil || 'assets/img/anon.jpg'}}" />
+						</div>
+						<div class="col-md-5 col-sm-4">
+							<h4>Acerca de {{profesional.nombre}}</h4>
+							<hr/>
+							<p>{{profesional.descripcion}}</p>
+						</div>
+						<div class="col-md-4 col-sm-5">
+							<h4>Horarios</h4>
+							<hr/>
+							<div class="row reserva-peluquero-body-horarios-container text-center">
+								<div class="col-xs-12 reserva-peluquero-body-horario" data-ng-show="!modal.horarios[profesional.id].length">
+									No existen turnos disponibles en este horario.
+								</div>
+								<div class="col-xs-3 reserva-peluquero-body-horario" data-ng-repeat="horario in modal.horarios[profesional.id]" data-ng-class="{reserved: horario.reserved, selected: (horario.hora == modal.selectedHorario.hora && profesional.id == modal.selectedHorario.id_profesional)}" data-ng-click="modal.selectHorario(profesional, horario);">
+									<span>{{horario.hora}}</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<hr/>
+								</div>
+								<div class="col-xs-12 text-right">
+									<a class="btn btn-filled col-sm-offset-3 col-sm-6 col-xs-12" confirm-button="modal.reservar(profesional.id)">Reservar</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-warning" type="button" ng-click="modalInstance.dismiss()"><i class="fa fa-fw fa-backward"></i> Atrás</button>
+</div>

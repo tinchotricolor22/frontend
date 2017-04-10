@@ -1,0 +1,49 @@
+<div class="modal-header">
+	<h4>Detalles de la reserva</h4>
+</div>
+<div id="reserva-modal" class="modal-body">
+	<div class="row">
+		<div class="col-xs-12">
+			<dl class="dl-horizontal">
+				<dt>Fecha:</dt>
+				<dd>{{modal.moment(modal.turno.diahora_inicio).format('DD/MM/YYYY')}}</dd>
+			</dl>
+			<dl class="dl-horizontal">
+				<dt>Hora:</dt>
+				<dd>{{modal.moment(modal.turno.diahora_inicio).format('HH:mm')}}</dd>
+			</dl>
+			<dl class="dl-horizontal">
+				<dt>Tratamiento:</dt>
+				<dd>{{modal.turno.tratamiento.tipo_de_tratamiento.nombre}}</dd>
+			</dl>
+			<dl class="dl-horizontal">
+				<dt>Profesional:</dt>
+				<dd>{{modal.turno.profesional.nombre}} {{modal.turno.profesional.apellido}}</dd>
+			</dl>
+			<dl class="dl-horizontal">
+				<dt>Cliente:</dt>
+				<dd data-ng-show="modal.reserva.nombre">{{modal.reserva.nombre}}</dd>
+				<dd data-ng-hide="modal.reserva.nombre">{{modal.reserva.usuario.nombre}} {{modal.reserva.usuario.apellido}}</dd>
+			</dl>
+            <dl class="dl-horizontal">
+                <dt>Teléfono:</dt>
+                <dd data-ng-show="modal.reserva.contacto"> {{modal.reserva.contacto}}</dd>
+                <dd data-ng-hide="modal.reserva.contacto"> {{modal.reserva.usuario.telefono}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Email:</dt>
+                <dd data-ng-show="modal.reserva.email"> {{modal.reserva.email}}</dd>
+                <dd data-ng-hide="modal.reserva.email"> {{modal.reserva.usuario.email}}</dd>
+            </dl>
+			<dl class="dl-horizontal">
+				<dt>Estado:</dt>
+				<dd class="alert" data-ng-class="{'alert-pending': (modal.reserva.estado == 'CONFIRMACION_PENDIENTE'), 'alert-success': (modal.reserva.estado == 'CONFIRMADA'), 'alert-danger': (modal.reserva.estado == 'CANCELADA')}">{{estados[modal.reserva.estado]}}</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-warning" type="button" ng-click="modalInstance.dismiss()"><i class="fa fa-fw fa-backward"></i> Atrás</button>
+	<button class="btn btn-danger" type="button" confirm-button="modal.eliminar()" data-ng-show="modal.reserva.estado != 'CANCELADA'"><i class="fa fa-fw fa-trash-o"></i> Eliminar reserva</button>
+	<button class="btn btn-success" type="button" ng-click="modal.confirmar()" data-ng-show="modal.reserva.estado == 'CONFIRMACION_PENDIENTE'"><i class="fa fa-fw fa-check"></i> Confirmar reserva</button>
+</div>

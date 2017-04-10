@@ -1,0 +1,20 @@
+<form name="form" data-ng-submit="modal.select()">
+	<div class="modal-header">
+		<h4>{{modal.title}}</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-xs-12 form-group">
+				<label for="id_centro">Centro:</label>
+				<select id="id_centro" class="form-control" data-ng-model="modal.centro" data-placeholder="Seleccionar un centro" data-ui-select2 required>
+					<option></option>
+					<option ng-repeat="centro in modal.centros" value="{{centro.id}}">{{centro.nombre}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-warning" type="button" ng-click="modalInstance.dismiss()"><i class="fa fa-fw fa-backward"></i> Atrás</button>
+		<button class="btn btn-success" type="submit" data-ng-disabled="form.$invalid"><i class="fa fa-fw fa-check"></i> Aceptar</button>
+	</div>
+</form>

@@ -1,0 +1,62 @@
+<form id="register-modal" name="form"  class="register-form">
+    <div class="modal-body">
+        <a class="btn pull-right"><i class="fa fa-fw fa-times" ng-click="modalInstance.close()"></i></a>
+        <h4 class="text-center">Editar Cliente</h4>
+        <div class="form-group">
+            <input class="form-control" name="nombre" type="text" data-ng-model="cliente.nombre_apellido" placeholder="Nombre y apellido..." required autofocus="true">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="email" name="email" data-ng-model="cliente.email" placeholder="Email..." >
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="contacto" type="text" data-ng-model="cliente.telefono" placeholder="Teléfono...">
+        </div>
+        <div class="form-group">
+            <select class="form-control" ui-select2="SelectOptions" name="sexo"  ng-model="cliente.sexo" data-placeholder="Seleccione el sexo">
+                <option value=""></option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label class="col-xs-2">Fecha de cumpleaños</label>
+
+                <div class="col-lg-4">
+                    <select class="form-control" ng-change="changeMonth()" name="mes" ui-select2="SelectOptions" ng-model="fecha_cumple.mes" data-placeholder="Mes">
+                        <option value=""></option>
+                        <option ng-repeat="month in months track by $index" value="{{$index}}">{{month.name}}</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-4">
+                    <select class="form-control" name="día" ui-select2="SelectOptions" ng-model="fecha_cumple.dia" data-placeholder="Día">
+                        <option value=""></option>
+                        <option ng-repeat="i in months[fecha_cumple.mes].days track by $index" value="{{$index+1}}">{{$index+1}}</option>
+
+                    </select>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" name="direccion" type="text" data-ng-model="cliente.direccion" placeholder="Direccion...">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="Ciudad" type="text" data-ng-model="cliente.ciudad" placeholder="Ciudad...">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="Observacion" type="text" data-ng-model="cliente.observacion" placeholder="Observaciones...">
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-short btn-filled"   data-ng-click="register(true)">Guardar Cliente</button>
+
+        </div>
+
+        <div class="alert" data-ng-class="alertData.class" data-ng-show="alertData.message">{{alertData.message}}</div>
+    </div>
+</form>

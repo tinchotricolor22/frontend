@@ -1,0 +1,192 @@
+<form name="form" data-ng-submit="">
+    <div class="modal-header text-center on-mobile-text-center">
+        <h4><span data-ng-show="editar">Editar </span>{{cliente.nombre_apellido}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="text-center col-xs-12 col-sm-6 on-mobile-text-center">
+                <h4>Datos</h4>
+                <br>
+                <div ng-hide="editar">
+                    <div class="form-group ng-binding"><span class="bold">Mail: </span>{{cliente.email}}</div>
+                    <div class="form-group ng-binding"><span class="bold">Teléfono: </span>{{cliente.telefono}}</div>
+                    <div class="form-group ng-binding"><span class="bold">Dirección: </span>{{cliente.direccion}}</div>
+                    <div class="form-group ng-binding"><span class="bold">Ciudad: </span>{{cliente.ciudad}}</div>
+                    <div class="form-group ng-binding"><span class="bold">Sexo: </span>{{cliente.sexo}}</div>
+                    <div class="form-group ng-binding"><span class="bold">Cumpleaños: </span>{{convertToDay(cliente.fecha_cumple)}}</div>
+                    <!--<button class="form-group btn btn-warning" ng-click="openForm()">Editar</button>-->
+                </div>
+                <div ng-show="editar">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Nombre</label>
+                            <div class="col-lg-8">
+                                <input class="form-control ng-binding" type="text" data-ng-model="nuevocliente.nombre_apellido" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Mail</label>
+                            <div class="col-lg-8">
+                                <input class="form-control ng-binding" type="email" data-ng-model="nuevocliente.email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Telefono</label>
+                            <div class="col-lg-8">
+                                <input class="form-control ng-binding"  data-ng-model="nuevocliente.telefono" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Direccion</label>
+                            <div class="col-lg-8">
+                                <input class="form-control ng-binding"  data-ng-model="nuevocliente.direccion" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Ciudad</label>
+                            <div class="col-lg-8">
+                                <input class="form-control ng-binding"  data-ng-model="nuevocliente.ciudad" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Sexo</label>
+                            <div class="col-lg-8">
+                                <select class="form-control" ui-select2="SelectOptions" name="sexo"  ng-value="nuevocliente.sexo" ng-model="nuevocliente.sexo" data-placeholder="Seleccione el sexo">
+                                    <option value=""></option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 label-control">Fecha de cumpleaños</label>
+
+                            <div class="col-lg-4">
+                                <select class="form-control" ng-change="changeMonth()" name="mes" ui-select2="SelectOptions" ng-value="fecha_cumple.mes" ng-model="fecha_cumple.mes" data-placeholder="Mes">
+                                    <option value=""></option>
+                                    <option ng-repeat="month in months track by $index" value="{{$index}}">{{month.name}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <select class="form-control" name="día" ui-select2="SelectOptions" ng-value="fecha_cumple.dia" ng-model="fecha_cumple.dia" data-placeholder="Día">
+                                    <option value=""></option>
+                                    <option ng-repeat="i in months[fecha_cumple.mes].days track by $index" value="{{$index+1}}">{{$index+1}}</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <button class=" btn btn-success" data-ng-click="onSubmit()">Guardar</button>
+                            <button class=" btn btn-danger" data-ng-click="cancelForm()">Cancelar</button>
+                        </div>
+
+
+                </div>
+                <br>
+                <br>
+                <br>
+            </div>
+
+
+            <div class="text-center col-xs-12 col-sm-4 col-sm-offset-1 form-group on-mobile-text-center">
+                <h4>Foto</h4>
+                <br>
+                <img src="http://dev.wonoma.com/assets/img/anon.jpg" style="max-width: 200px;" />
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <section class="panel">
+                <table  class="table table-striped m-b-none text-small">
+                    <thead>
+                    <tr>
+                        <th>Profesional más solicitado</th>
+                        <th>Servicio más solicitado</th>
+                        <th>Cantidad de reservas</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>{{profesional}}</th>
+                            <th>{{tratamiento}}</th>
+                            <th>{{CantReservas}}</th>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </section>
+            <h4 class="text-center">NOTAS</h4>
+            <section class="panel">
+                <table  class="table table-striped m-b-none text-small">
+
+                    <tbody>
+                        <td class="text-center">{{cliente.observacion}}</td>
+                    </tbody>
+
+                </table>
+            </section>
+            <div class="text-center col-xs-12 col-sm-12 on-mobile-text-center">
+                <h4 class="text-center">Historial del cliente</h4>
+
+                <section class="panel">
+                    <div>
+                        <table ng-table="tableParams2" class="table table-striped m-b-none text-small">
+                            <thead>
+                            <tr>
+                                <!--<th>     </th>-->
+                                <th>Fecha</th>
+                                <th>Servicio</th>
+                                <th>Duracion</th>
+                                <th>Profesional</th>
+                                <th>Estado</th>
+                                <th>Tipo de venta</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="turno in $data" data-ng-class="{'success': turno.estado == 'CUMPLIDA','warning': turno.estado == 'CONFIRMACION_PENDIENTE','info': turno.estado == 'CONFIRMADA','danger': turno.estado == 'CANCELADA'}" >
+                                <!--<td>
+                                    <button class="btn btn-info btn-sm"><i class="fa fa-book"></i> Ver reserva</button>
+                                </td>-->
+                                <td>
+                                    {{convertToDate(turno.diahora_inicio)}}
+                                </td>
+                                <td>
+                                    {{turno.tratamiento_nombre}}
+                                </td>
+                                <td>
+                                    {{convertToTime(turno.diahora_inicio,turno.diahora_fin)}}
+                                </td>
+                                <td>
+                                    {{turno.profesional_nombre}}
+                                </td>
+                                <td>
+                                    <!--<div class="sparkline" data-bar-color="#5cb85c" data-type="bar"><!--20,10,15,21,12,5,21,30,24,15,8,19--><!--</div>-->
+                                    <p ng-class="{true: 'active', false: 'hide'}[turno.estado == 'CUMPLIDA']">Finalizada</p>
+                                    <p ng-class="{true: 'active', false: 'hide'}[turno.estado == 'CONFIRMACION_PENDIENTE']">A Confirmar</p>
+                                    <p ng-class="{true: 'active', false: 'hide'}[turno.estado == 'CANCELADA']">Cancelada</p>
+                                    <p ng-class="{true: 'active', false: 'hide'}[turno.estado == 'CONFIRMADA']">Confirmada</p>
+                                </td>
+                                <td>
+                                    Reserva {{turno.origen}}
+                                </td>
+
+
+
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </section>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" type="button" ng-click="modalInstance.dismiss()"><i class="fa fa-fw fa-backward"></i> Atrás</button>
+    </div>
+</form>

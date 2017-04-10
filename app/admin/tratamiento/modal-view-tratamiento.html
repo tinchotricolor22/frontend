@@ -1,0 +1,59 @@
+<div class="modal-header">
+	<h4>Seleccionar tratamiento</h4>
+</div>
+<div class="modal-body">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="well">
+				<form name="form" data-ng-submit="modal_tableParams.reload();">
+					<div class="row">
+						<div class="col-md-6 form-group">
+							<label for="modal_filters_id_tipo_tratamiento">Tipo de tratamiento:</label>
+							<select id="modal_filters_id_tipo_tratamiento" class="form-control" data-ng-model="modal.filters.id_tipo_tratamiento" data-placeholder="Seleccionar un tipo de tratamiento" data-ui-select2>
+								<option></option>
+								<option ng-repeat="tipo in modal_tipos_de_tratamiento" value="{{tipo.id}}">{{tipo.nombre}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 text-right">
+							<button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-filter"></i> Filtrar</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-xs-12">
+			<table ng-table="modal_tableParams" class="table table-striped table-bordered">
+				<tbody>
+					<tr ng-repeat="obj in $data | orderBy:'nombre'">
+                        <td data-title="'Tipo de Tratamiento'" sortable="tipo_de_tratamiento.nombre">
+                            {{obj.tipo_de_tratamiento.nombre}}
+                        </td>
+						<td data-title="'Nombre'" sortable="nombre">
+							{{obj.nombre}}
+						</td>
+						<td data-title="'Descripción'" sortable="descripcion">
+							{{obj.descripcion | cut:true:100:' ...'}}
+						</td>
+						<!--<td data-title="'Precio'" sortable="precio">
+							{{obj.precio}}
+						</td>-->
+						<td data-title="'Duración'" sortable="duracion">
+							{{obj.duracion}}
+						</td>
+						<td data-title="'Asociar'" class="text-center" style="width: 64px;">
+							<a class="btn btn-info btn-xs" data-ng-click="modal.select(obj)" data-tooltip="Seleccionar">Asociar</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-warning" type="button" ng-click="modalInstance.dismiss()"><i class="fa fa-fw fa-backward"></i> Atrás</button>
+</div>

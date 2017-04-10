@@ -1,0 +1,54 @@
+<form id="login-modal" name="form" novalidate class="login-form">
+	<div class="modal-body">
+        <i class="pull-right cr-pointer fa fa-lg fa-times" data-ng-click="modalInstance.dismiss()"></i>
+		<h4 class="text-center">MODIFICAR MIS DATOS</h4>
+        <hr>
+        <h5 class="text-center bold">Actualizá tus datos!</h5>
+        <div class="form-group">
+            <input type="text" class="form-control disabled" name="email" data-ng-model="modal.user.email" placeholder="Email" disabled>
+        </div>
+		<div class="form-group">
+			<input type="text" class="form-control" name="nombre" data-ng-model="modal.user.nombre" placeholder="Nombre" required>
+		</div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="apellido" data-ng-model="modal.user.apellido" placeholder="Apellido" required>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="telefono" data-ng-model="modal.user.telefono" placeholder="Teléfono">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="telefono" data-ng-model="modal.user.cp" placeholder="Código Postal">
+        </div>
+        <div class="form-group">
+            <p class="input-group">
+                <input type="text" class="form-control"
+                       ng-click="datepicker.open($event)"
+                       datepicker-popup="{{datepicker.format}}"
+                       ng-model="modal.user.fecha_cumple"
+                       is-open="datepicker.opened"
+                       max-date="'2015-06-22'"
+                       datepicker-options="datepicker.dateOptions"
+                       date-disabled="datepicker.disabled(date, mode)"
+                       show-button-bar="false"
+                       placeholder="Fecha de cumpleaños"
+                       ng-required="true"/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="datepicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+        </div>
+        <div class="form-group" style="overflow: hidden;">
+            <div>
+                <select data-ui-select2 class="form-control" name="sexo" data-ng-model="modal.user.sexo" placeholder="Hombre / Mujer">
+                    <option value=""></option>
+                    <option value="Mujer">Mujer</option>
+                    <option value="Hombre">Hombre</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+			<button class="btn btn-short btn-filled" data-ng-click="update()">CONFIRMAR</button>
+		</div>
+		<div class="alert" data-ng-class="authError.class" data-ng-show="authError.message">{{authError.message}}</div>
+	</div>
+</form>

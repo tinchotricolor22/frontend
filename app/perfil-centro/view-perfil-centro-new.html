@@ -1,0 +1,231 @@
+<div id="centro-perfil-container" class="perfil-section">
+
+        <div class="row centro-tratamiento-row">
+
+            <div class="col-sm-7" style="margin-left: 3%;padding:2%;border-radius: 10px;border: 1px solid #d3d3d3;">
+
+                <section>
+                    <div class="on-mobile-text-center" ng-init="current_tab = 2">
+                        <button class="botones" data-ng-class="{'active': current_tab == 1}" style="margin-left:6%;padding: 0px;" data-ng-click="current_tab = 1">Acerca de</button>
+                        <button class="botones" data-ng-class="{'active': current_tab == 2}" style="margin-left:5%;padding: 0px;" data-ng-click="current_tab = 2">Reservar</button>
+                    </div>
+                    <div>
+                        <div class="tab-content">
+                            <div class="tab-pane" data-ng-class="{'active': current_tab == 2}" style="padding: 0px 10px 10px 10px;">
+                                <div class="centro-tratamiento-row">
+                                    <div class="col-sm-12">
+                                        <div class="row centro-tratamiento-row">
+                                            <form name="search-form" novalidate  submit-once="mostrarProfesionales()" role="form">
+                                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                                    <ul class="">
+                                                        <li data-ng-class="{'active': current_badge == 1}">
+                                                            <div class="col-sm-1">
+                                                                <span class="new-badge">1</span>
+                                                            </div>
+                                                            <div class="col-sm-11">
+
+
+                                                                <select class="form-control" ng-model="tratamiento.index" data-placeholder="¿Qué tratamiento querés?" data-ui-select2 required>
+                                                                    <option></option>
+                                                                    <optgroup ng-repeat="tipoDeTratamiento in tipoDeTratamientos" label="{{tipoDeTratamiento.nombre}}">
+                                                                        <option ng-repeat="(index, tt) in tipoDeTratamiento.tratamientos">{{tt.nombre}}</option>
+                                                                    </optgroup>
+                                                                </select>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class="divider"><div class="col-sm-12" style="margin-top:15px;background-color: #a9a9a9;height: 1px;width:100%;"></div></li>
+                                                        <li ng-hide="showProfesionales">
+                                                            <div class="col-sm-1">
+                                                                <br>
+                                                                <span class="new-badge-muted">2</span>
+                                                            </div>
+                                                            <div class="col-sm-11">
+
+                                                                <h4 style="color: #a9a9a9;padding-top:13px;">Profesionales</h4>
+                                                            </div>
+                                                        </li>
+
+                                                        <li ng-show="showProfesionales" data-ng-class="{'active': current_badge == 2}">
+                                                            <div class="col-sm-1">
+                                                                <br>
+                                                                <span class="new-badge">2</span>
+                                                            </div>
+                                                            <div class="col-sm-11">
+
+                                                                <h4 class="rojo-oscuro" style="padding-top:13px;">Profesionales</h4>
+                                                            </div>
+
+                                                            <div class="col-sm-1" style="margin-top: 40px;">
+
+                                                                <a class="arrows" ng-click="selectPREV()"><i class="fa fa-arrow-circle-left fa-2x"></i></a>
+
+                                                            </div>
+                                                            <div class="col-sm-10">
+                                                                <center>
+                                                                <div>
+                                                                    <div ng-repeat="pro in pros | slice:start:end" class="image-blocks" ng-click="selectMe(pro.id_position)" ng-class="pro.estado">
+                                                                        <img ng-show="pro.url_foto_perfil" src="" data-ng-src="{{pro.url_foto_perfil}}" class="fotos-reserva" />
+                                                                        <p>{{pro.nombre}} {{pro.apellido}}</p>
+                                                                    </div>
+                                                                </div>
+                                                                </center>
+                                                            </div>
+                                                            <div class="col-sm-1" style="margin-top: 40px;">
+                                                                <a class="arrows" ng-click="selectNEXT()"><i class="fa fa-arrow-circle-right fa-2x" style=""></i></a>
+                                                            </div>
+
+
+                                                        </li>
+                                                        <li class="divider"><div class="col-sm-12" style="margin-top:15px;background-color: #a9a9a9;height: 1px;width:100%;"></div></li>
+                                                        <li ng-hide="showFechas">
+                                                            <div class="col-sm-1">
+                                                                <br>
+                                                                <span class="new-badge-muted">3</span>
+                                                            </div>
+                                                            <div class="col-sm-11">
+                                                                <h4 style="color: #a9a9a9;padding-top:13px;">Fecha y horas disponibles</h4>
+                                                            </div>
+                                                        </li>
+                                                        <li ng-show="showFechas" data-ng-class="{'active': current_badge == 3}">
+                                                            <div class="col-sm-1">
+                                                                <br>
+                                                                <span class="new-badge">3</span>
+                                                            </div>
+                                                            <div class="col-sm-11">
+                                                                <h4 class="rojo-oscuro" style="padding-top:13px;">Fecha y horas disponibles</h4>
+                                                            </div>
+                                                            <div class="col-sm-1">
+
+                                                            </div>
+                                                            <div class="col-sm-11">
+                                                                <div class="fecha-box">
+                                                                    <div class="col-sm-1">
+
+                                                                    </div>
+                                                                    <div class="col-sm-1">
+                                                                        <a ng-click="prevWeek()"><i class="fa fa-chevron-left" style="color: #cbcbcb;"></i></a>
+                                                                    </div>
+                                                                    <div class="col-sm-8">
+                                                                        <center>{{mesGenerado}} {{anoGenerado}}</center>
+                                                                    </div>
+                                                                    <div class="col-sm-2">
+                                                                        <a ng-click="nextWeek()"><i class="fa fa-chevron-right" style="color: #cbcbcb;"></i></a>
+                                                                    </div>
+                                                                    <div class="col-sm-12 fechas-box-div">
+                                                                        <div>
+                                                                            <center>
+                                                                            <div ng-show="primeraSemana" ng-repeat="fecha2 in fechas2" class="fecha-div">
+                                                                                <center>
+                                                                                    {{diaMinified(fecha2.dia)}}
+                                                                                    <span ng-show="fecha2.blocked" class="fecha-badge-disabled">{{fecha2.fecha}}</span>
+                                                                                </center>
+                                                                            </div>
+                                                                            <div ng-repeat="fecha in fechas | slice:fecha_start:fecha_end" class="fecha-div">
+                                                                                <center>
+                                                                                {{diaMinified(fecha.dia)}}
+                                                                                <span ng-hide="fecha.blocked" class="fecha-badge" ng-class="fecha.estado" ng-click="setACTIVE(fecha.orden)">{{fecha.fecha}}</span>
+                                                                                <span ng-show="fecha.blocked" class="fecha-badge-disabled">{{fecha.fecha}}</span>
+                                                                                </center>
+                                                                            </div>
+
+                                                                            </center>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <ul class="list-group">
+                                                                            <li class="list-group-item">
+
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" data-ng-class="{'active': current_tab == 1}" style="padding: 10px 10px 10px 10px;">
+
+                                <div class="centro-tratamiento-row">
+                                    <div class="col-sm-12">
+                                        <div class="perfil-centro-informacion-text">
+                                            <div class="col-sm-12">
+                                                <h4 class="on-mobile-text-center text-center">Descripcion</h4>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4 on-mobile-text-center">
+                                                    <img src="" data-ng-src="{{centro.url_logo}}"/>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <p>{{centro.descripcion}}</p>
+                                                </div>
+                                                <div class="col-sm-4 on-mobile-text-center">
+                                                    <br>
+                                                    <button class="redbutton" data-ng-click="current_tab = 2">Reservar</button>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <div class="col-sm-12">
+                                        <div class="text-left on-mobile-text-center col-sm-6">
+                                            <br>
+                                            <h4>Información Útil</h4>
+                                            <p>
+                                                {{centro.horarios_visibles}}
+                                            </p>
+                                            <p>
+                                                Teléfono: {{centro.telefono}}
+                                            </p>
+                                            <p>
+                                                Dirección: {{centro.direccion}}
+                                            </p>
+                                            <p>
+                                                <a data-ng-href="{{centro.web}}" class="perfil-centro-web-text">{{centro.web}}</a>
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-6" style="padding-top: 10px;">
+                                            <div class=perfil-centro-informacion-text" style="padding-top:13px;padding-left:13px;">
+                                                <h4 class="on-mobile-text-center">Mapa</h4>
+                                            </div>
+                                            <div class="col-sm-12 perfil-centro-map-col" data-ng-controller="CentroMapCtrl">
+                                                <google-map center="map.center" zoom="map.zoom" draggable="true" refresh="map.refresh" options="map.options">
+                                                    <marker coords="map.marker.coords" options="map.marker.options" events="map.marker.events" idkey="map.marker.id">
+                                                    </marker>
+                                                </google-map>
+                                            </div>
+                                        </div>
+                                 </div>
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-sm-4" style="background-color:#a9a9a9;margin-left: 2%;padding:2%;border-radius: 10px;border: 1px solid #d3d3d3;">
+                    <div class="centro-tratamiento-row">
+                        <div class="col-sm-4">
+                            <ul class="list-group">
+                                <li class="active">ACTIVE</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-2">
+                            <ul class="list-group">
+                                <li class="active">ACTIVE</li>
+                            </ul>
+                        </div>
+
+                </div>
+            </div>
+    </div>
+</div>

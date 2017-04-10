@@ -1,0 +1,35 @@
+<div class="mi-cuenta-section">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h1 class="sobre-nosotros-index-section-title between-lines">Mi Cuenta</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-center col-xs-12 col-sm-6 on-mobile-text-center">
+                <h4>Mis Datos</h4>
+                <br>
+                    <div class="form-group"><span class="bold">Nombre: </span>&nbsp; {{security.currentUser.nombre}} {{security.currentUser.apellido}}</div>
+                    <div class="form-group"><span class="bold">Mail: </span>&nbsp; {{security.currentUser.email}}</div>
+                    <div class="form-group"><span class="bold">Teléfono: </span>&nbsp; {{security.currentUser.telefono}}</div>
+                    <div class="form-group"><span class="bold">Código Postal: </span>&nbsp; {{security.currentUser.cp}}</div>
+                    <div class="form-group"><span class="bold">Hombre/Mujer: </span>&nbsp; {{security.currentUser.sexo}}</div>
+                    <div class="form-group"><span class="bold">Cumpleaños: </span>&nbsp; {{security.currentUser.fecha_cumple | date:'dd/MM'}}</div>
+            </div>
+            <div class="col-xs-12 col-sm-6 text-center">
+                <div class="row">
+                    <br>
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center sobre-nosotros-view-button">
+                        <a href="" class="btn btn-filled btn-block" data-ng-click="openChangePasswordDialog()">Cambiar Contraseña</a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center sobre-nosotros-view-button">
+                        <a href="" class="btn btn-filled btn-block" data-ng-click="openUpdateUserDialog()">Modificar Mis Datos</a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center sobre-nosotros-view-button">
+                        <a href="" class="btn btn-filled btn-block" data-ng-click="openCloseAccountDialog()">Cerrar Cuenta</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

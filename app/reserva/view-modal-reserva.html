@@ -1,0 +1,52 @@
+<form id="reserva-modal" submit-once="reservar()" name="form" novalidate class="">
+    <div class="modal-header">
+        <i class="pull-right cr-pointer fa fa-lg fa-times" data-ng-click="modalInstance.dismiss()"></i>
+        <h4 class="text-center">Confirmación de Reserva</h4>
+    </div>
+	<div class="modal-body">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 text-center text-center">
+                <img class="index-pelu-img" ng-src="{{reserva.centro.url_logo}}"/>
+            </div>
+            <div class="col-xs-12 text-center reserva-modal-descripcion-container">
+
+                <span class="reserva-modal-descripcion-text">Confirmas que deseas reservar un turno el día</span>
+                <br>
+                <span class="reserva-modal-descripcion-rojo-text">{{reserva.fecha | date:'dd/MM/yyyy'}}</span>
+                <span class="reserva-modal-descripcion-text"> para las </span>
+                <span class="reserva-modal-descripcion-rojo-text">{{reserva.selectedHorario['hora']}} Hs.</span>
+                <br>
+                <span class="reserva-modal-descripcion-text"> con </span>
+                <span class="reserva-modal-descripcion-rojo-text"> {{reserva.profesional.nombre}} </span>
+                <span class="reserva-modal-descripcion-text"> en </span>
+                <span class="reserva-modal-descripcion-rojo-text"> {{reserva.centro.nombre}} </span>
+                <br>
+                <span class="reserva-modal-descripcion-text"> para un </span>
+                <span class="reserva-modal-descripcion-rojo-text"> {{reserva.tratamiento.nombre}} </span>
+                <span class="reserva-modal-descripcion-text">.</span>
+                <br>
+                <span class="reserva-modal-descripcion-text">
+                    Tené en cuenta que el tratamiento dura aproximadamente
+                    {{reserva.tratamiento.duracion * reserva.centro.duracion_fraccion}} minutos.
+                </span>
+            </div>
+            <br>
+            <br>
+            <div class="col-md-offset-4 col-md-4 col-xs-12 text-center reserva-modal-reservar-button">
+                <button class="btn btn-filled" type="submit">Confirmar</button>
+            </div>
+        </div>
+	</div>
+    <div class="modal-footer">
+        <p class="reserva-modal-descripcion-small-text">
+            La reserva tiene una tolerancia de 15 minutos.
+            El horario del turno es de concurrencia al lugar, y no de atención.
+            <br>
+            En caso de no poder concurrir, por favor cancelá tu reserva (con link que te lleva a cancelar).
+            <br>
+            Si tenés un voucher de descuento, deberás asistir con el mismo. Promociones no acumulables.
+            <br>
+            Wonoma NO se responsabiliza por el cumplimiento del horario del turno por parte de los centros ni del servicio brindado por los mismos.
+        </p>
+    </div>
+</form>

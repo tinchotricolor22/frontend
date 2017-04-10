@@ -1,0 +1,139 @@
+<div class="container">
+	<form name="form" submit-once="update();" role="form">
+		<div class="row">
+			<div class="col-md-6">
+				<h2>Modificar {{ctrlConfig.modelName}}</h2>
+			</div>
+		</div>
+		<br>
+		<h4><i class="fa fa-fw fa-file-text-o"></i> Detalles del {{ctrlConfig.modelName}}</h4>
+		<hr>
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label for="nombre">Nombre:</label>
+				<input id="nombre" class="form-control" type="text" name="nombre" data-ng-model="object.nombre" maxlength="90" required autofocus />
+			</div>
+			<div class="form-group col-sm-6">
+				<label for="eslogan">Eslogan:</label>
+				<input id="eslogan" class="form-control" type="text" name="eslogan" data-ng-model="object.eslogan" maxlength="455" />
+			</div>
+			<div class="form-group col-xs-12">
+				<label class="profile-preview jumbotron-background" for="fake-input-file" style="height: 350px;" background-image="{{object.url_foto_portada}}">
+					<span>Cambiar portada</span>
+				</label>
+				<input id="fake-input-file" class="fake-input-file" onchange="angular.element(this).scope().upload(this.files, 'url_foto_portada')" type="file" name="logo" value="Subir" />
+			</div>
+			<div class="form-group col-xs-12">
+				<div class="row">
+					<div class="form-group col-xs-12 col-sm-3">
+						<label class="text-left">Logo</label>
+						<div class="form-group col-xs-12 text-center nopadding">
+							<img ng-src="{{object.url_logo}}" style="width: 100%;" />
+							<label class="profile-preview" for="fake-input-file-2">
+								<span>Cambiar logo</span>
+							</label>
+							<input id="fake-input-file-2" class="fake-input-file" onchange="angular.element(this).scope().upload(this.files, 'url_logo')" type="file" name="logo" value="Subir" />
+						</div>
+					</div>
+					<div class="form-group col-xs-12 col-sm-3">
+						<label for="descripcion">Descripción:</label>
+						<textarea id="descripcion" class="form-control" name="descripcion" data-ng-model="object.descripcion" style="height: 170px;"></textarea>
+					</div>
+					<div class="form-group col-xs-12 col-sm-6">
+						<div class="row" data-ng-controller="CentroMapAddressCtrl">
+							<div class="form-group col-xs-12 ">
+								<label for="direccion">Dirección:</label>
+								<div class="input-group">
+									<input id="direccion" class="form-control" type="text" name="direccion" data-ng-model="object.direccion" maxlength="90" required />
+									<span class="input-group-btn"><button class="btn btn-success" data-ng-click="searchLocation()" type="button">Buscar</button></span>
+								</div>
+							</div>
+							<div class="form-group col-xs-12 perfil-centro-map-col" data-ng-if="centro.latitud">
+								<google-map center="map.center" zoom="map.zoom" draggable="true" refresh="map.refresh" options="map.options">
+									<marker coords="map.marker.coords" options="map.marker.options" events="map.marker.events" idkey="map.marker.id"></marker>
+								</google-map>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group col-sm-6">
+				<label for="telefono">Teléfono:</label>
+				<input id="telefono" class="form-control" type="text" name="telefono" data-ng-model="object.telefono" maxlength="20" />
+			</div>
+			<div class="form-group col-sm-6">
+				<label for="telefono_movil">Teléfono móvil:</label>
+				<input id="telefono_movil" class="form-control" type="text" name="telefono_movil" data-ng-model="object.telefono_movil" maxlength="20" />
+			</div>
+			<div class="form-group col-sm-6">
+				<label for="email">Email:</label>
+				<input id="email" class="form-control" type="text" name="email" data-ng-model="object.email" />
+			</div>
+			<div class="form-group col-sm-6">
+				<label for="web">Web:</label>
+				<input id="web" class="form-control" type="text" name="web" data-ng-model="object.web" />
+			</div>
+			<div class="form-group col-sm-6">
+				<label for="duracion_fraccion">Duración fracción:</label>
+				<input id="duracion_fraccion" class="form-control" type="number" step="5" name="duracion_fraccion" data-ng-model="object.duracion_fraccion" />
+			</div>
+			<div class="form-group col-sm-6">
+				<label for="horarios_visibles">Horarios visibles:</label>
+				<input id="horarios_visibles" class="form-control" type="text" name="horarios_visibles" data-ng-model="object.horarios_visibles" />
+			</div>
+			<!--
+			<div class="form-group col-sm-6">
+				<label for="id_localidad">Localidad:</label>
+				<select id="id_localidad" class="form-control" data-ng-model="object.id_localidad" data-placeholder="Seleccionar una localidad" data-ui-select2 >
+					<option></option>
+					<option ng-repeat="localidad in localidades" value="{{localidad.id}}">{{localidad.nombre}}</option>
+				</select>
+			</div>
+			-->
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12 pull-right text-right">
+				<a onclick="history.back()" class="btn btn-warning" type="button"><i class="fa fa-fw fa-backward"></i> Atrás</a>
+				<button data-ng-disabled="form.$invalid" class="btn btn-success" type="submit"><i class="fa fa-fw fa-save"></i> Guardar</button>
+			</div>
+		</div>
+	</form>
+	<br>
+	<div class="row">
+		<div class="col-md-12">
+			<h4><i class="fa fa-fw fa-clock-o"></i> Horarios del {{ctrlConfig.modelName}}</h4>
+			<hr>
+		</div>
+		<div class="col-md-12 text-right">
+			<a class="btn btn-success" ng-click="agregarIntervaloOpen()" type="button"><i class="fa fa-fw fa-plus"></i> Agregar intervalo</a>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-xs-12">
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>Día</th>
+						<th>Hora inicio intervalo</th>
+						<th>Hora fin intervalo</th>
+						<th> </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="intervalo in intervalos_actividad">
+						<td>{{intervalo.dia | ucFirst}}</td>
+						<td class="text-center">{{intervalo.desde}}</td>
+						<td class="text-center">{{intervalo.hasta}}</td>
+						<td data-title="''" class="text-center" style="width: 64px;">
+							<div class="btn-group btn-group-xs">
+								<a class="btn btn-danger btn-xs" confirm-button="quitarIntervalo(intervalo.index_dia, intervalo.index_intervalo)" data-tooltip="Eliminar"><i class="fa fa-trash-o"></i></a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
